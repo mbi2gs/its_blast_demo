@@ -37,9 +37,8 @@ data/all_hits.csv: data/fungi.ITS.nhr \
 	  blastn -db data/fungi.ITS \
 		-query data/all_samples_its_short.fasta \
 		-out data/all_hits.csv \
-		-max_target_seqs 10 \
-		-outfmt "6 qseqid sseqid pident length mismatch qcovs qstart qend sstart send evalue bitscore sseq" && \
-	sed -i '1iqseqid	sseqid	pident	length	mismatch	qcovs	qstart	qend	sstart	send	evalue	bitscore	sseq' data/all_hits.csv
+		-outfmt "6 qseqid sseqid stitle pident length mismatch qcovs qstart qend sstart send evalue bitscore sseq" && \
+	sed -i '1iqseqid	sseqid	stitle	pident	length	mismatch	qcovs	qstart	qend	sstart	send	evalue	bitscore	sseq' data/all_hits.csv
 
 results/report.tsv: data/all_hits.csv \
 					scripts/gen_report.R
