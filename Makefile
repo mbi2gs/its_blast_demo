@@ -24,6 +24,7 @@ build-blast: Dockerfile.blast
 	touch $@
 	
 data/fungi.ITS.fna: build-blast
+	mkdir -p data && \
 	curl ftp://ftp.ncbi.nlm.nih.gov/refseq/TargetedLoci/Fungi/fungi.ITS.fna.gz -o data/fungi.ITS.fna.gz && \
 	gunzip -f data/fungi.ITS.fna.gz
 
@@ -43,5 +44,5 @@ data/all_hits.csv: data/fungi.ITS.nhr \
 results/report.tsv: data/all_hits.csv \
 					scripts/gen_report.R
 	docker run -it --rm -v $(shell pwd):/workdir -w /workdir rocker/tidyverse \
-	  Rscript gen_report.R data/all_hits.csv scripts/report.tsv
+	  Rscript scripts/gen_report.R data/all_hits.csv scripts/report.tsv
 	  
