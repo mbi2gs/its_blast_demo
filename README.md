@@ -9,5 +9,5 @@ To run the entire project:
 make results/genus_counts.png
 ```
 
-Genus abundances (log-scale):
+## Genus abundances (log-scale):
 ![](results/genus_counts.png)
