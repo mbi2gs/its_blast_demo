@@ -6,7 +6,7 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4778662/
 
 To run the entire project:
 ```
-make results/report.tsv
+make results/genus_counts.png
 ```
 
 Genus abundances (log-scale):
