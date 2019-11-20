@@ -9,5 +9,5 @@ To run the entire project:
 make results/report.tsv
 ```
 
-Genus abundances:
+Genus abundances (log-scale):
 ![](results/genus_counts.png)
