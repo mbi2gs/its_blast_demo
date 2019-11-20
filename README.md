@@ -8,3 +8,6 @@ To run the entire project:
 ```
 make results/report.tsv
 ```
+
+Genus abundances:
+![](results/genus_counts.png)
