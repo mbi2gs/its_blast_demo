@@ -41,8 +41,18 @@ data/all_hits.csv: data/fungi.ITS.nhr \
 		-outfmt "6 qseqid sseqid stitle pident length mismatch qcovs qstart qend sstart send evalue bitscore sseq" && \
 	sed -i '1iqseqid	sseqid	stitle	pident	length	mismatch	qcovs	qstart	qend	sstart	send	evalue	bitscore	sseq' data/all_hits.csv
 
-results/report.tsv: data/all_hits.csv \
-					scripts/gen_report.R
-	docker run -it --rm -v $(shell pwd):/workdir -w /workdir rocker/tidyverse \
-	  Rscript scripts/gen_report.R data/all_hits.csv scripts/report.tsv
+pull-pandas:
+	docker pull amancevice/pandas:0.25.2-slim && touch $@
+	
+	
+results/summary_species_counts.tsv: pull-pandas \
+									data/all_hits.csv \
+									scripts/generate_report.py
+	docker run -it \
+		--rm -v $(shell pwd):/workdir \
+		-w /workdir \
+		amancevice/pandas:0.25.2-slim \
+			python scripts/generate_report.py \
+			data/all_hits.csv \
+			results/summary
 	  

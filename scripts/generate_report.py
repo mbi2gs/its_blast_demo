@@ -25,5 +25,19 @@ all_hits_df = (pd.read_csv(infile, sep='\t')
 all_hits_df['binomial'] = all_hits_df['stitle'].apply(parse_taxonomy, args=(False,))
 all_hits_df['genus'] = all_hits_df['stitle'].apply(parse_taxonomy, args=(True,))
 
+# Write genus counts report to file
+outfile_root = sys.argv[2]
+(all_hits_df
+ .groupby('genus')
+ .size()
+ .sort_values(ascending=False)
+ .to_csv(outfile_root + '_genus_counts.tsv', sep='\t', header=True)
+)
 
-print(all_hits_df.groupby('genus').size().sort_values(ascending=False))
+# Write species counts report to file
+(all_hits_df
+ .groupby('binomial')
+ .size()
+ .sort_values(ascending=False)
+ .to_csv(outfile_root + '_species_counts.tsv', sep='\t', header=True)
+)
