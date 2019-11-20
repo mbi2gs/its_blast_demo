@@ -45,9 +45,9 @@ pull-pandas:
 	docker pull amancevice/pandas:0.25.2-slim && touch $@
 	
 	
-results/summary_species_counts.tsv: pull-pandas \
-									data/all_hits.csv \
-									scripts/generate_report.py
+results/summary_genus_counts.tsv: pull-pandas \
+								  data/all_hits.csv \
+								  scripts/generate_report.py
 	docker run -it \
 		--rm -v $(shell pwd):/workdir \
 		-w /workdir \
@@ -55,4 +55,11 @@ results/summary_species_counts.tsv: pull-pandas \
 			python scripts/generate_report.py \
 			data/all_hits.csv \
 			results/summary
-	  
+
+results/genus_counts.png: results/summary_genus_counts.tsv \
+						  scripts/generate_figure.R
+	docker run -it \
+		--rm -v $(shell pwd):/workdir \
+		-w /workdir \
+		rocker/tidyverse \
+			Rscript scripts/generate_figure.R
